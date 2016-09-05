@@ -1,0 +1,54 @@
+{
+# eigen
+local EIGEN_FILES_SRCS = 
+		Eigen/Dense
+;
+
+# actual nav3 stuff
+local NAV3_FILES_SRCS = 
+		Nav3/Nav3_Brain.h
+		Nav3/Nav3_Brain.cpp
+		Nav3/Nav3_BrainParams.h
+		Nav3/Nav3_BrainParams.cpp
+		Nav3/Nav3_Graph.h
+		Nav3/Nav3_Graph.cpp
+		Nav3/Nav3_iSampleSource.h
+		Nav3/Nav3_iSampleSource.cpp
+		Nav3/Nav3_Route.h
+		Nav3/Nav3_Route.cpp
+		Nav3/Nav3_World.h
+		Nav3/Nav3_World.cpp
+;
+
+# non-nav3 things that you'd swap out for your own application code
+local APP_FILES_SRCS = 
+		App/Actor.h
+		App/Actor.cpp
+		App/Brain.h
+		App/Brain.cpp
+		App/CMesh.h
+		App/CMesh.cpp
+		App/CMesh_SampleSource.h
+		App/CMesh_SampleSource.cpp
+		App/SpaceshipFlightEngine.h
+		App/SpaceshipFlightEngine.cpp
+		App/RMesh.h
+		App/RMesh.cpp
+;
+
+local SRCS =
+		$(EIGEN_FILES_SRCS)
+		$(NAV3_FILES_SRCS)
+		$(APP_FILES_SRCS)
+;
+
+SourceGroup Nav3 	: "Nav3"	: $(NAV3_FILES_SRCS) 	;
+SourceGroup Nav3 	: "App"		: $(APP_FILES_SRCS) 	;
+SourceGroup Nav3 	: "Eigen"	: $(EIGEN_FILES_SRCS) 	;
+
+SubDir nav3 ;
+C.Application Nav3 : 
+	$(SRCS) 
+	main.cpp
+;
+}
